@@ -25,8 +25,11 @@ Plugin.extend({
             joinBtn.hide();
             EkstepRendererAPI.dispatchEvent('com.github.steotia.peerplay.core.player.join');
         });
-
-        EkstepRendererAPI.dispatchEvent('com.github.steotia.peerplay.core.player.search');
+        srchBtn._self.on("click",function(){
+            srchBtn.hide();
+            EkstepRendererAPI.dispatchEvent('com.github.steotia.peerplay.core.player.search');
+        });
+        // EkstepRendererAPI.dispatchEvent('com.github.steotia.peerplay.core.player.search');
 
         EkstepRendererAPI.addEventListener('com.github.steotia.peerplay.core.wsserver.undefined',function(){
             startBtn.show();
@@ -45,9 +48,15 @@ Plugin.extend({
             joinBtn.show();
         });
         EkstepRendererAPI.addEventListener('com.github.steotia.peerplay.core.state.hello',function(e,_data){
-            console.log('com.github.steotia.peerplay.scorer HELLO: '+JSON.stringify(_data));
+            console.log('com.github.steotia.peerplay.controls HELLO: '+JSON.stringify(_data));
             instance._theme.setParam('com.github.steotia.peerplay.scorer.uuid',_data.data.uuid);
         });
+        EkstepRendererAPI.addEventListener('com.github.steotia.peerplay.core.state.start',function(e,_data){
+            console.log('com.github.steotia.peerplay.controls START: '+JSON.stringify(_data));
+            EkstepRendererAPI.dispatchEvent('actionNavigateSkip');
+        });
+
+
 
 
 
